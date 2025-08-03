@@ -54,7 +54,7 @@
 
     config = mkIf cfg.enable {
       systemd.services = {
-        mental-instability-bot = {
+        staticinator = {
           description = "Staticinator";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
