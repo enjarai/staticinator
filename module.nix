@@ -64,7 +64,7 @@
           ];
           environment = {
             DATA_PATH = "/var/lib/staticinator";
-            PORT = "${cfg.port}";
+            PORT = toString cfg.port;
           };
 
           serviceConfig = {
