@@ -8,7 +8,7 @@ DEPLOY_ENDPOINT=$INPUT_DEPLOY_ENDPOINT
 echo "Compressing input"
 
 TMP_DIR=$(mktemp -d)
-tar -czvf "$TMP_DIR/archive.tar.gz" $FOLDER/*
+tar -czvf "$TMP_DIR/archive.tar.gz" -C "$FOLDER" .
 
 echo "Sending to deploy endpoint"
 
