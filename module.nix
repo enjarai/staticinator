@@ -91,7 +91,7 @@
       };
 
       environment.systemPackages = [
-        (writeShellScriptBin "mkstatic" ''
+        (pkgs.writeShellScriptBin "mkstatic" ''
           TOKEN=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
           DIR="${dataPath}/$1"
           mkdir -m 0755 "$DIR"
