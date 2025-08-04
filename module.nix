@@ -25,6 +25,7 @@
       array
       listOf;
 
+    dataPath = "/var/lib/staticinator";
     cfg = config.services.staticinator;
   in
   {
@@ -63,7 +64,7 @@
             cfg.port
           ];
           environment = {
-            DATA_PATH = "/var/lib/staticinator";
+            DATA_PATH = dataPath;
             PORT = toString cfg.port;
           };
 
@@ -88,6 +89,21 @@
       users.groups = optionalAttrs (cfg.group == "staticinator") {
         staticinator = { };
       };
+
+      environment.systemPackages = [
+        (writeShellScriptBin "mkstatic" ''
+          TOKEN=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
+          DIR="${dataPath}/$1"
+          mkdir -m 0755 "$DIR"
+          mkdir -m 0755 "$DIR/html"
+          touch "$DIR/token"
+          chmod 0600 "$DIR/token"
+          echo "$TOKEN" >> "$DIR/token"
+          chown -R ${cfg.user}:${cfg.group} "$DIR"
+          echo "New static directory configured for $1, your token is:"
+          echo "$TOKEN"
+        '')
+      ]
     };
   }
 )
