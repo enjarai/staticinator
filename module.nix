@@ -103,7 +103,7 @@
           echo "New static directory configured for $1, your token is:"
           echo "$TOKEN"
         '')
-      ]
+      ];
     };
   }
 )
